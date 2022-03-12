@@ -7,6 +7,8 @@ import { Text, Wrapper } from "../../Components/ExportStyles";
 import Card from "../../Components/FoodCard";
 import Header from "../../Components/Header";
 import fooditem from "../../Images/fooditem.svg";
+import samosa from "../../Images/samosa.jpg";
+import lasagna from "../../Images/lasagna.jpg";
 
 export const Toppickdiv = styled.div`
   display: flex;
@@ -41,12 +43,19 @@ const Canteensdiv = styled.div`
 
   .canteenCard {
     position: relative;
-    width: max-content;
+    width: 350px;
+    height: 200px;
+    // background-image: url(${(props) => props.bg});
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 8px;
 
-    .img {
-      // position: absolute;
-      // z-index: 1;
-    }
+    // .img {
+    //   position: absolute;
+    //   z-index: 1;
+    //   width: 200px;
+    //   object-fit: contain;
+    // }
 
     .text {
       position: absolute;
@@ -81,9 +90,8 @@ const CanteenList = () => {
 
   async function changeRoute(item) {
     const response = await AxiosGet(
-      `https://grub-it.herokuapp.com/api/v1/canteen/622c9f26b0bdf47b2307940f/622caa483b41d0c1c3164a7b` 
+      `https://grub-it.herokuapp.com/api/v1/canteen/${item.college._id}/${item._id}` 
     );
-    console.log(response, "CANTEEN ID");
     if (response?.data?.status == "success") {
       dispatch({ type: "selectedCanteen", data: response.data.data });
       navigate("/canteenmenu");
@@ -94,15 +102,15 @@ const CanteenList = () => {
     {
       id: 0,
       name: "Samosa",
-      imgSrc: fooditem,
-      rate: 0,
+      image: samosa,
+      price: 50,
       canteen: "AMUL CORNER",
     },
     {
       id: 1,
-      name: "Samosa",
-      imgSrc: fooditem,
-      rate: 0,
+      name: "Lasagna",
+      image: lasagna,
+      price: 40,
       canteen: "AMUL CORNER",
     },
   ];
@@ -110,7 +118,7 @@ const CanteenList = () => {
   return (
     <>
       <Header college={canteens[0].college.name} />
-      <Wrapper>
+      <Wrapper style={{height: '100vh'}}>
         <Toppickdiv>
           <div className="toppick-header">
             <Text size="25px" weight="500">
@@ -141,8 +149,9 @@ const CanteenList = () => {
                   key={key}
                   className="canteenCard"
                   onClick={() => changeRoute(item)}
+                  style={{backgroundImage: `url(${(item.image)})`}}
                 >
-                  <img src={fooditem} className="img" />
+                  {/* <img src={item.image} className="img" /> */}
                   <Text className="text" color="white" weight="500" size="20px">
                     {item.name}
                   </Text>

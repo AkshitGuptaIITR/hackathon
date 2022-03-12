@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "../ExportStyles";
@@ -22,12 +22,12 @@ const Counter = ({ data, order }) => {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   //   const placeorderdata = {...data,count}
-  function placeOrder() {
-    if (order && count) {
-      dispatch({ type: "placeOrder", data: { ...data, count } });
-    }
-  }
-  placeOrder();
+  useEffect(() => {
+      if (order && count>0) {
+        dispatch({ type: "placeOrder", data: { ...data, count } });
+      }
+  }, [order]);
+
   return (
     <Counterdiv className="counter">
       <Counterbutton

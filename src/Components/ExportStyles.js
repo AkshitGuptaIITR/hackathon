@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   background: #d7d7d7;
   padding: 20px 5%;
   background-image: url(${bg});
+  // height: 100vh;
 
   // .BgImg {
   //   position: absolute;

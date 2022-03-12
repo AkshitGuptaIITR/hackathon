@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -46,15 +46,20 @@ const Placeorderdiv = styled.div`
 const Canteenmenu = () => {
   const navigate = useNavigate();
   const selectedCanteen = useSelector((state) => state.selectedCanteen);
+  const placedOrders = useSelector((state) => state.placeOrder);
   const categories = ["Patties", "Rolls", "Parathas"];
   const [placeOrder, setPlaceOrder] = useState(false);
   const collegeName = selectedCanteen?.canteen?.college?.name;
-  console.log(selectedCanteen.menu.rolls, "MENU");
+  // console.log(selectedCanteen.menu.rolls, "MENU");
+  useEffect(()=>{
+    if(placedOrders.length>0){
+      navigate('/placeorder')
+    }
+  },[placedOrders])
 
   function PlaceOrder() {
     console.log("INSIDE PLACEORDER");
     setPlaceOrder(true);
-    navigate("/placeorder");
   }
 
   return (

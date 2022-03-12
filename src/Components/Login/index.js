@@ -56,6 +56,7 @@ const LoginCard = ({toggleLogin,toggleSignup,loginClicked,signUpClicked,show}) =
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [cookie, setCookie, removeCookie] = useCookies();
 //   const [loginClicked, toggleLogin] = useState(false);
 //   const [signUpClicked, toggleSignup] = useState(false);
 
@@ -93,6 +94,8 @@ const LoginCard = ({toggleLogin,toggleSignup,loginClicked,signUpClicked,show}) =
     }
     return errors;
   };
+
+  console.log(cookie.token)
 
   const handleOnSubmit = async (values) => {
     console.log("HANDLE SUBMIT");
@@ -143,13 +146,18 @@ const LoginCard = ({toggleLogin,toggleSignup,loginClicked,signUpClicked,show}) =
           "https://grub-it.herokuapp.com/api/v1/user/login",
           values
         );
-        if (response.status == "success") {
+        if (response.data.status == "success") {
+          if(cookie.token){
+            removeCookie('token');
+          }
+          console.log(response.data.data.token)
+          setCookie('token', response.data.data.token)
           setLoading(false);
-          dispatch({ type: "login", data: response?.data?.user });
+          dispatch({ type: "login", data: response?.data?.data?.user });
           notification.success({
             message: "Successfully Logged In!",
           });
-          navigate("/home");
+          navigate("/");
         }
       } catch (err) {
         setLoading(false);

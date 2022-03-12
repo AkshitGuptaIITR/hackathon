@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
 import dateConverter from "../../Common/convertDate";
-import { AxiosGet, AxiosPost } from "../../Components/Apicaller";
+import { AxiosGet, AxiosPatch } from "../../Components/Apicaller";
 import { Button, Wrapper } from "../../Components/ExportStyles";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
@@ -58,7 +58,7 @@ const WorkerDashboard = () => {
   const handleSelection = async (id, accepted) => {
     setLoading(true);
     try {
-      const response = await AxiosPost(
+      const response = await AxiosPatch(
         `https://grub-it.herokuapp.com/api/v1/orders/${id}`,
         {
           accepted,

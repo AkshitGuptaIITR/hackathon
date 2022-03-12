@@ -3,15 +3,50 @@ import env from "react-dotenv";
 
 export const URL = [{ loginUrl: env.REACT_APP_LOGIN_URL }];
 
-export async function AxiosGet(url) {
-  const response = await axios.get(url);
+export async function AxiosGet(url, token) {
+  let response;
+  if (token) {
+    response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    response = await axios.get(url);
+  }
   if (response) {
     return response;
   }
 }
 
-export async function AxiosPost(url, data) {
-  const response = await axios.post(url, data);
+export async function AxiosPost(url, data, token) {
+  let response;
+
+  if (token) {
+    response = await axios.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    response = await axios.post(url, data);
+  }
+  if (response) {
+    return response;
+  }
+}
+
+export async function AxiosPatch(url, data, token) {
+  let response;
+  if (token) {
+    response = await axios.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    response = await axios.patch(url, data);
+  }
   if (response) {
     return response;
   }

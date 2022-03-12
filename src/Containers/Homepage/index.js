@@ -8,7 +8,6 @@ import { useNavigate } from "react-router";
 import { AxiosGet, AxiosPost, URL } from "../../Components/Apicaller";
 import { useEffect, useState } from "react";
 
-
 const Subdiv = styled.div`
   display: flex;
   height: 90vh;
@@ -135,7 +134,7 @@ const Homepage = () => {
         "https://grub-it.herokuapp.com/api/v1/college/name"
       );
       if (response.data.status == "success") {
-				console.log(response?.data?.data.college)
+        console.log(response?.data?.data.college);
         dispatch({ type: "collegelist", data: response?.data?.data.college });
       }
     }
@@ -147,7 +146,7 @@ const Homepage = () => {
     return item.name;
   });
 
-	const college_id = colleges?.[collegeName.indexOf(college)]?._id;
+  const college_id = colleges?.[collegeName.indexOf(college)]?._id;
 
   const handleSubmitCollege = async () => {
     const response = await AxiosGet(
@@ -155,16 +154,16 @@ const Homepage = () => {
     );
     if (response.data.status == "success") {
       console.log(response.data.data.canteen, "SUBMIT COLLEGE ID");
-      dispatch({ type: "canteenData", data: response?.data?.data.canteen});
-			navigate('/canteenlist')
+      dispatch({ type: "canteenData", data: response?.data?.data.canteen });
+      navigate("/canteenlist");
     }
   };
 
   return (
     <>
-      <Header/>
+      <Header />
       <Wrapper>
-				{/* <LoginCard loginClicked={loginClicked} signUpClicked={signUpClicked} toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> */}
+        {/* <LoginCard loginClicked={loginClicked} signUpClicked={signUpClicked} toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> */}
         <Subdiv>
           <div className="info">
             <Text size="50px" weight="700">

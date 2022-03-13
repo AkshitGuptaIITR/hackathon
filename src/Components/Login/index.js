@@ -119,12 +119,11 @@ const LoginCard = ({
           "https://grub-it.herokuapp.com/api/v1/user/signup",
           data
         );
-        if (response.status == "success") {
+        if (response.data.status == "success") {
           setLoading(false);
           notification.success({
-            message: "Successfully Signed up!",
+            message: "Successfully Signed up! You can now login.",
           });
-          navigate("/");
         }
       } catch (err) {
         setLoading(false);
